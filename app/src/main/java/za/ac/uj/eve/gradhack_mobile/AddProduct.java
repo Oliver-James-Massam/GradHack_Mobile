@@ -4,12 +4,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AddProduct extends AppCompatActivity
 {
@@ -19,7 +25,7 @@ public class AddProduct extends AppCompatActivity
     EditText txtBestBefore;
     EditText txtQuantity;
     Button btnAdd;
-
+    private static String userID = "";
 
 
     @Override
@@ -27,7 +33,20 @@ public class AddProduct extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Products");
 
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userID = dataSnapshot.getKey();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
         txtName = (EditText)findViewById(R.id.txtItemName);
         txtType = (EditText)findViewById(R.id.txtType);
         txtSellBy = (EditText)findViewById(R.id.txtSellBy);
@@ -82,7 +101,7 @@ public class AddProduct extends AppCompatActivity
                 }
                 else
                 {
-                    Product product = new Product(strBestBefore,strSellBy,strName,Integer.parseInt(strType),Integer.parseInt(strQuantity));
+                    Product product = new Product(strBestBefore,strSellBy,strName,Integer.parseInt(strType),Integer.parseInt(strQuantity),userID);
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Products");
                     String productID = mDatabase.push().getKey();
                     mDatabase.child(productID).setValue(product);

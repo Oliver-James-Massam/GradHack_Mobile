@@ -37,7 +37,6 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_products__stores);
-        System.out.println("Hello world");
         listItemView = (ListView)findViewById(R.id.listView1);
         fab = (FloatingActionButton)findViewById(R.id.fab1);
 
