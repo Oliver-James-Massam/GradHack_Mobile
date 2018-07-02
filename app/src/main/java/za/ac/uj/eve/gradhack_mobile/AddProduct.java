@@ -2,9 +2,16 @@ package za.ac.uj.eve.gradhack_mobile;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddProduct extends AppCompatActivity
 {
+    EditText txtName;
+    EditText txtType;
+    EditText txtSellBy;
+    EditText txtBestBefore;
+    EditText txtQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

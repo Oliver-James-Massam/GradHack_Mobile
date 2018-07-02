@@ -17,6 +17,7 @@
         android:typeface="serif" />
 
     <EditText
+        android:id="@+id/txtItemName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
@@ -24,28 +25,33 @@
     android:inputType="text"/>
 
     <EditText
+        android:id="@+id/txtType"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
         android:hint="Type"
-        android:inputType="text"/>
+        android:inputType="text" />
+
     <EditText
+        android:id="@+id/txtBestBefore"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
         android:hint="BestBefore"
-        android:inputType="date"/>
+        android:inputType="date" />
 
     <EditText
+        android:id="@+id/txtSellBy"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="SellBuy"
+        android:hint="SellBy"
         android:inputType="date" />
 
     <EditText
+        android:id="@+id/txtQuantity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
@@ -53,8 +59,8 @@
         android:inputType="number" />
 
 
-
     <Button
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
