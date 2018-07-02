@@ -23,5 +23,9 @@
 
     <string name="tab">\t</string>
 
-
+    <string name="error_invalid_product_name">This product name is invalid</string>
+    <string name="error_invalid_product_type">This product type is invalid</string>
+    <string name="error_invalid_product_sellby">This product sell by is invalid</string>
+    <string name="error_invalid_product_bestbefore">This product best before is invalid</string>
+    <string name="error_invalid_product_quantity">This product quantity is invalid</string>
 </resources>
