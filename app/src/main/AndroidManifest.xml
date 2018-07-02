@@ -39,7 +39,7 @@
             android:name=".zbraScan"
             android:label=" QRcode Generator">
         </activity>
-        <activity android:name=".ScannerQr"></activity>
+        <activity android:name=".ScannerQr" android:label=" Scanner Generator"/>
     </application>
 
 </manifest>
