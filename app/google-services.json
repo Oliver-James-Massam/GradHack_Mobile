@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "151857449660",
+    "firebase_url": "https://redapron-c0db2.firebaseio.com",
+    "project_id": "redapron-c0db2",
+    "storage_bucket": "redapron-c0db2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151857449660:android:7e086bca9ce24f78",
+        "android_client_info": {
+          "package_name": "za.ac.uj.eve.gradhack_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151857449660-a8mt25ghv89n91nmo6lpbj3bh3armt1n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlK5MRO-q-4up5R2tENL8k_M3t_JNM5lE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
