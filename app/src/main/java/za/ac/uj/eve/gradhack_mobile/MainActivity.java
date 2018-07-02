@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -22,6 +25,32 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        String name = "store";//change to new user name
+        String password = "12345678";//change to new user password
+        User tmpUser = new User(name,"0721231234",name + "@email.com","0,0",0,0);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        String userId = mDatabase.push().getKey();
+        mDatabase.child(userId).setValue(tmpUser);
+
+         mAuth.createUserWithEmailAndPassword(name + "@email.com", password)
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -85,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.navListProducts) {
             startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
         } else if (id == R.id.navViewOrders) {
-            startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
+            startActivity(new Intent(MainActivity.this, AddProduct.class));
         } else if (id == R.id.navLeaderboard) {
             startActivity(new Intent(MainActivity.this, DonationLeaderboardActivity.class));
         } else if (id == R.id.navRequestFood) {
