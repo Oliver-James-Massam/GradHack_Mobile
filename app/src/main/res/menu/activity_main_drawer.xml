@@ -5,34 +5,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/navListProducts"
+            android:icon="@drawable/baseline_list_black_18dp"
+            android:title="Products Listed" />
+        <item
+            android:id="@+id/navViewOrders"
+            android:icon="@drawable/baseline_shopping_basket_black_18dp"
+            android:title="Orders" />
+        <item
+            android:id="@+id/navLeaderboard"
+            android:icon="@drawable/baseline_assessment_black_18dp"
+            android:title="Leaderboard" />
+        <item
+            android:id="@+id/navRequestFood"
+            android:icon="@drawable/baseline_shopping_cart_black_18dp"
+            android:title="Place Order" />
+        <item
+            android:id="@+id/navScanner"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Scan Product or Confirm Order" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
 </menu>
