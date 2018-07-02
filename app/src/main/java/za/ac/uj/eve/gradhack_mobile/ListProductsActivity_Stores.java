@@ -31,37 +31,52 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
     ListView listItemView;
     FloatingActionButton fab;
 
-    String[] listItemsValue = new String[] {
-            "Android",
-            "PHP",
-            "Web Development",
-            "Blogger",
-            "SEO",
-            "Photoshop",
-            "Android Studio",
-            "Eclipse",
-            "SDK Manager",
-            "AVD Manager"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_products__stores);
-
+        System.out.println("Hello world");
         listItemView = (ListView)findViewById(R.id.listView1);
         fab = (FloatingActionButton)findViewById(R.id.fab1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_2, android.R.id.text1, listItemsValue);
-
-        listItemView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                //Toast.makeText(MainActivity.this, "Fab Clicked", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(ListProductsActivity_Stores.this, AddProduct.class));
+            }
+        });
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Products");
+        final ArrayList<Product> items = new ArrayList<>();
+        Log.d(TAG," A" );
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snap : dataSnapshot.getChildren())
+                {
+
+                    Product product  = snap.getValue(Product.class);
+                    items.add(product);
+                }
+                String[] itemArray = new String[items.size()];
+                for (int i = 0; i < items.size();i++)
+                {
+                    itemArray[i] = items.get(i).Name;
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListProductsActivity_Stores.this,android.R.layout.simple_list_item_2, android.R.id.text1, itemArray);
+
+                listItemView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
     }
@@ -72,36 +87,34 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("products");
+        DatabaseReference ref = database.getReference("Products");
         final ArrayList<Product> items = new ArrayList<>();
-        ref.addListenerForSingleValueEvent(new ValueEventListener()
-        {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
+
                     Product product  = snap.getValue(Product.class);
                     items.add(product);
-                    Log.d("ListProducts",TAG + ": " + product.Name);
-                }
 
+                }
+                String[] itemArray = new String[items.size()];
+                for (int i = 0; i < items.size();i++)
+                {
+                    itemArray[i] = items.get(i).Name;
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListProductsActivity_Stores.this,android.R.layout.simple_list_item_2, android.R.id.text1, itemArray);
+
+                listItemView.setAdapter(adapter);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-                // ...
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
 
-        /**ArrayAdapter dispAdp;
-        ListView Display = (ListView) findViewById(R.id.);
-        if (Display != null) {
-            Display.setAdapter(new ArrayAdapter<String>(ListProductsActivity_Stores.this, android.R.layout.simple_list_item_1, new ArrayList<String>()));
-
-            dispAdp = (ArrayAdapter) Display.getAdapter();
-            dispAdp.clear();
-            dispAdp.addAll(items);
-        }*/
     }
 }

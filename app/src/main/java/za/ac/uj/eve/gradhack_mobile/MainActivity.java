@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.navListProducts) {
             startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
         } else if (id == R.id.navViewOrders) {
-            startActivity(new Intent(MainActivity.this, AddProduct.class));
+            startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
         } else if (id == R.id.navLeaderboard) {
             startActivity(new Intent(MainActivity.this, DonationLeaderboardActivity.class));
         } else if (id == R.id.navRequestFood) {
