@@ -13,8 +13,11 @@ public class AddProduct extends AppCompatActivity
     EditText txtBestBefore;
     EditText txtQuantity;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
     }
