@@ -35,6 +35,7 @@
         <activity android:name=".ListProductsActivity_Stores" />
         <activity android:name=".ViewOrdersActivity" />
         <activity android:name=".DonationLeaderboardActivity" />
+        <activity android:name=".AddProduct" />
         <activity
             android:name=".zbraScan"
             android:label=" QRcode Generator">
