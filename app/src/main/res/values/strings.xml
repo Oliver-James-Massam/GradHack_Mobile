@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GradHack_Mobile</string>
+    <string name="app_name">Red Apron</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -20,4 +20,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="tab">\t</string>
 </resources>
