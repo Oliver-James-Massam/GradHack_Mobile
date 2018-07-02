@@ -17,11 +17,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -37,8 +33,16 @@
         <activity
             android:name=".zbraScan"
             android:label=" QRcode Generator">
+
         </activity>
-        <activity android:name=".ScannerQr"></activity>
+        <activity android:name=".ScannerQr" android:label=" Scanner Generator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
