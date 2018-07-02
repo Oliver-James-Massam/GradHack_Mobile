@@ -28,11 +28,11 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProductDetailsActivity" />
-        <activity android:name=".ScanActivity" />
         <activity android:name=".RequestFoodActivity_NGO" />
         <activity android:name=".ListProductsActivity_Stores" />
         <activity android:name=".ViewOrdersActivity" />
-        <activity android:name=".DonationLeaderboardActivity"></activity>
+        <activity android:name=".DonationLeaderboardActivity" />
+        <activity android:name=".zbraScan"></activity>
     </application>
 
 </manifest>
