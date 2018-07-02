@@ -61,6 +61,7 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                 {
 
                     Product product  = snap.getValue(Product.class);
+                    //if (product.StoreID == )
                     items.add(product);
                 }
                 String[] itemArray = new String[items.size()];
@@ -85,6 +86,7 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        /*
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Products");
         final ArrayList<Product> items = new ArrayList<>();
@@ -114,6 +116,6 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
+*/
     }
 }
