@@ -28,4 +28,11 @@
     <string name="error_invalid_product_sellby">This product sell by is invalid</string>
     <string name="error_invalid_product_bestbefore">This product best before is invalid</string>
     <string name="error_invalid_product_quantity">This product quantity is invalid</string>
+
+    <string name="prompt_product_name">Item Name</string>
+    <string name="prompt_product_type">Type</string>
+    <string name="prompt_product_sellby">SellBy</string>
+    <string name="prompt_product_bestbefore">Best Before</string>
+    <string name="prompt_product_quantity">Quantity</string>
+    <string name="prompt_button_add">Add Item</string>
 </resources>

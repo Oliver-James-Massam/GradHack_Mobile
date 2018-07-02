@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+@SuppressWarnings("WeakerAccess")
 public class Product
 {
 

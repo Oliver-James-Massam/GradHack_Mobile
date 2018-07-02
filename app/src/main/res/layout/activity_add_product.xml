@@ -21,7 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Item Name"
+        android:hint="@string/prompt_product_name"
         android:inputType="text" />
     android:inputType="text"/>
 
@@ -30,7 +30,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Type"
+        android:hint="@string/prompt_product_type"
         android:inputType="text" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="BestBefore"
+        android:hint="@string/prompt_product_bestbefore"
         android:inputType="date" />
 
     <EditText
@@ -48,7 +48,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="SellBy"
+        android:hint="@string/prompt_product_sellby"
         android:inputType="date" />
 
     <EditText
@@ -56,7 +56,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Quantity"
+        android:hint="@string/prompt_product_quantity"
         android:inputType="number" />
 
 
@@ -69,6 +69,6 @@
         android:elevation="4dp"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
-        android:text="Add Product"
+        android:text="@string/prompt_button_add"
         android:textColor="#fff" />
 </LinearLayout>
