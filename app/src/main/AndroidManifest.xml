@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="za.ac.uj.eve.gradhack_mobile">
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -22,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".ScanActivity" />
+        <activity android:name=".RequestFoodActivity_NGO" />
+        <activity android:name=".ListProductsActivity_Stores" />
+        <activity android:name=".ViewOrdersActivity" />
+        <activity android:name=".DonationLeaderboardActivity"></activity>
     </application>
 
 </manifest>
