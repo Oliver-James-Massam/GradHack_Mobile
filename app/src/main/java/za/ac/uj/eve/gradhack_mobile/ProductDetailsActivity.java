@@ -41,17 +41,17 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final TextView productQuantity = (TextView) findViewById(R.id.productQuantity);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase;
+        DatabaseReference ref = database.getReference("Products");
 
-        mDatabase = database.getReference("Products");
+        final ImageView qrCodeImage = (ImageView) findViewById(R.id.qrCode);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Product product  = snap.getValue(Product.class);
+                    Log.d("Cheese","Ham");
                     if (snap.getKey().equals(productID))
                     {
                         productName.setText(product.Name);
@@ -70,7 +70,21 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             }
                         }
                         productType.setText(strType);
-                        productQuantity.setText(product.Quantity);
+                        Log.d("Cheese","Ham " + product.Quantity);
+                        String strQuantity = String.valueOf(product.Quantity);
+                        productQuantity.setText(strQuantity);
+
+                        MultiFormatWriter mfw = new MultiFormatWriter();
+
+                        try{
+                            String text2qr = product.Name + "#" + strType + "#" + strQuantity;//text.getText().toString().trim();
+                            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,600,600);
+                            BarcodeEncoder be = new BarcodeEncoder();
+                            Bitmap bitmap = be.createBitmap(bm);
+                            qrCodeImage.setImageBitmap(bitmap);
+                        }catch(WriterException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
 
@@ -82,18 +96,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
-        ImageView qrCodeImage = (ImageView) findViewById(R.id.qrCode);
-        MultiFormatWriter mfw = new MultiFormatWriter();
 
-        try{
-            String text2qr = "Apples#0#400";//text.getText().toString().trim();
-            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,600,600);
-            BarcodeEncoder be = new BarcodeEncoder();
-            Bitmap bitmap = be.createBitmap(bm);
-            qrCodeImage.setImageBitmap(bitmap);
-        }catch(WriterException e){
-            e.printStackTrace();
-        }
+
 
     }
 }
