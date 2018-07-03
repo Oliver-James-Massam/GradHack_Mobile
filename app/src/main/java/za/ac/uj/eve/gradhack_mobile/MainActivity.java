@@ -33,7 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "LoginActivityDebug";
+    private static final String TAG = "MainActivityDebug";
+    private static int userType = 0; //Store = 0; NGO = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,19 +69,59 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String email = preferences.getString("email", null);
+        final String email = preferences.getString("email", "");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference("products");
-        final ArrayList<User> items = new ArrayList<>();
+        DatabaseReference mDatabase = database.getReference("Users");
 
-        mDatabase.child(email).addValueEventListener(new ValueEventListener() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+
+        // find MenuItem you want to change
+        final MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren())
+                {
+                    User user = snap.getValue(User.class);
 
-                User user = dataSnapshot.getValue(User.class);
+                    if(user.Email.equals(email))
+                    {
+                        userType = user.Type;
+                        //Log.d(TAG, "User name: " + user.Name + ", email " + user.Email + " , Type: " + userType);
+                        switch(userType)// Stores
+                        {
+                            case 0:
+                            {
+                                // set new title to the MenuItem
+                                typeFunction.setTitle("Products Listed");
+                                typeFunction.setIcon(R.drawable.baseline_list_black_18dp);
 
-                //Log.d(TAG, "User name: " + user.getName() + ", email " + user.getEmail());
+                                break;
+                            }
+
+                            case 1:
+                            {
+                                // set new title to the MenuItem
+                                typeFunction.setTitle("Place Order");
+                                typeFunction.setIcon(R.drawable.baseline_shopping_cart_black_18dp);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
             }
 
             @Override
@@ -90,13 +131,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -159,16 +195,29 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navListProducts) {
+        if(id == R.id.navUserTypeFunction)
+        {
+            if(userType == 0)
+            {
+                startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
+            }
+            else if(userType == 1)
+            {
+                startActivity(new Intent(MainActivity.this, RequestFoodActivity_NGO.class));
+            }
+        }
+        /*if (id == R.id.navListProducts) {
             startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
-        } else if (id == R.id.navViewOrders) {
+        }*/ else if (id == R.id.navViewOrders) {
             startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
         } else if (id == R.id.navLeaderboard) {
             startActivity(new Intent(MainActivity.this, DonationLeaderboardActivity.class));
-        } else if (id == R.id.navRequestFood) {
+        } /*else if (id == R.id.navRequestFood) {
             startActivity(new Intent(MainActivity.this, RequestFoodActivity_NGO.class));
-        } else if (id == R.id.navScanner) {
+        }*/ else if (id == R.id.navScanner) {
             startActivity(new Intent(MainActivity.this, ScannerQr.class));
+        } else if (id == R.id.navLogout) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

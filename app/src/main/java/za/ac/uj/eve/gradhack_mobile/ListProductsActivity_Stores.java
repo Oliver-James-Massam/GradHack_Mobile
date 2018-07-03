@@ -1,10 +1,12 @@
 package za.ac.uj.eve.gradhack_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -38,18 +40,29 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_products__stores);
         listItemView = (ListView)findViewById(R.id.listView1);
-        fab = (FloatingActionButton)findViewById(R.id.fab1);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+//        fab = (FloatingActionButton)findViewById(R.id.fab1);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//               //Toast.makeText(MainActivity.this, "Fab Clicked", Toast.LENGTH_LONG).show();
+//                startActivity(new Intent(ListProductsActivity_Stores.this, AddProduct.class));
+//            }
+//        });
+        ImageButton btnAddIncome = (ImageButton) findViewById(R.id.btnAddProduct);
+        btnAddIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-               //Toast.makeText(MainActivity.this, "Fab Clicked", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(ListProductsActivity_Stores.this, AddProduct.class));
             }
         });
-
+        SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
+        final String email = preferences.getString("email", "");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String UserID = DatabaseWrapper.getUserID(email);
+
+
         DatabaseReference ref = database.getReference("Products");
         final ArrayList<Product> items = new ArrayList<>();
         Log.d(TAG," A" );
@@ -61,8 +74,8 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                 {
 
                     Product product  = snap.getValue(Product.class);
-                    //if (product.StoreID == )
-                    items.add(product);
+                    if (product.StoreID.equals(UserID))
+                        items.add(product);
                 }
                 String[] itemArray = new String[items.size()];
                 for (int i = 0; i < items.size();i++)

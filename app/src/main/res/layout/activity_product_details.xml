@@ -25,4 +25,12 @@
         android:text="Quantity: Hello"
         android:textSize="24sp"/>
 
+    <ImageView
+        android:id="@+id/qrCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center"
+        />
+
 </LinearLayout>
