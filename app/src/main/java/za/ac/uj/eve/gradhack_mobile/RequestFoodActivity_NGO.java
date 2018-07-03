@@ -52,7 +52,8 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
                 {
 
                     Product product  = snap.getValue(Product.class);
-                    items.add(new Triplet<String, String, Product>(product.StoreID,snap.getKey(),product));
+                    if (product.Quantity > 0)
+                        items.add(new Triplet<String, String, Product>(product.StoreID,snap.getKey(),product));
                 }
                 String[] itemArray = new String[items.size()];
                 for (int i = 0; i < items.size();i++)
