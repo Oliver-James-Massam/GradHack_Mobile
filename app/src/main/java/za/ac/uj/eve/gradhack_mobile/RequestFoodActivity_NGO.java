@@ -41,7 +41,7 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Products");
 
-        final ArrayList<Pair<String,Product>> items = new ArrayList<>();
+        final ArrayList<Triplet<String ,String,Product>> items = new ArrayList<>();
 
         final ListView listItemView = (ListView) findViewById(R.id.requestFoodList);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -52,12 +52,12 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
                 {
 
                     Product product  = snap.getValue(Product.class);
-                    items.add(new Pair<String, Product>(snap.getKey(),product));
+                    items.add(new Triplet<String, String, Product>(product.StoreID,snap.getKey(),product));
                 }
                 String[] itemArray = new String[items.size()];
                 for (int i = 0; i < items.size();i++)
                 {
-                    itemArray[i] = items.get(i).second.Name;
+                    itemArray[i] = items.get(i).third.Name;
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(RequestFoodActivity_NGO.this,android.R.layout.simple_list_item_2, android.R.id.text1, itemArray);
 
@@ -78,9 +78,10 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
 
                 SharedPreferences productPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor productEditor = productPref.edit();
-                String tmpkey = items.get(i).first;
-                Log.d("Product_List",tmpkey);
+                String tmpkey = items.get(i).second;
+                String tmpStoreID = items.get(i).second;
                 productEditor.putString("product_key_from_order",tmpkey).apply();
+                productEditor.putString("store_key_from_product",tmpStoreID).apply();
 
                 /*
                 Intent intent = new Intent(RequestFoodActivity_NGO.this,ProductDetailsActivity.class);
@@ -119,16 +120,16 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
                 RequestFoodActivity_NGO.ViewHolder viewHolder = new RequestFoodActivity_NGO.ViewHolder();
                 viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                //viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (RequestFoodActivity_NGO.ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+//            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                }
+//            });
             mainViewholder.title.setText(getItem(position));
 
             return convertView;
@@ -138,6 +139,6 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
 
         ImageView thumbnail;
         TextView title;
-        Button button;
+        //Button button;
     }
 }
