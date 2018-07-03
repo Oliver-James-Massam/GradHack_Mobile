@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
                 .allowMainThreadQueries()
                 .build();
 
-        db.dao_database().insertOrder(new Orders(1, 1, 1, 1));
+       // db.dao_database().insertOrder(new Orders(1, 1, 1, 1));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -154,9 +154,11 @@ public class MainActivity extends AppCompatActivity
 
         // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
+        /*
         List<Orders> values = db.dao_database().getOrdersAll();
         Orders temp = values.get(0);
         Toast.makeText(this, "OrderID: "+ temp.getOrderID() + " StoreID: " + temp.getStoreID(), Toast.LENGTH_SHORT).show();
+        */
     }
 
     private boolean doubleBackToExitPressedOnce;

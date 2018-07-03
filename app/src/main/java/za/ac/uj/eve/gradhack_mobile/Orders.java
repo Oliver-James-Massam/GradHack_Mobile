@@ -11,18 +11,18 @@ public class Orders {
     private int orderID;
 
     @ColumnInfo(name = "storeID")
-    private int storeID;
+    private String storeID;
 
     @ColumnInfo(name = "ngoID")
-    private int ngoID;
+    private String ngoID;
 
     @ColumnInfo(name = "productNameID")
-    private int productID;
+    private String productID;
 
     @ColumnInfo(name = "quantity")
     private int quantity;
 
-    public Orders(int storeID, int ngoID, int productID, int quantity)
+    public Orders(String storeID, String ngoID, String productID, int quantity)
     {
         this.storeID = storeID;
         this.ngoID = ngoID;
@@ -38,27 +38,27 @@ public class Orders {
         this.orderID = valueID;
     }
 
-    public int getStoreID() {
+    public String getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(int storeID) {
+    public void setStoreID(String storeID) {
         this.storeID = storeID;
     }
 
-    public int getNgoID() {
+    public String getNgoID() {
         return ngoID;
     }
 
-    public void setNgoID(int ngoID) {
+    public void setNgoID(String ngoID) {
         this.ngoID = ngoID;
     }
 
-    public int getProductID() {
+    public String getProductID() {
         return productID;
     }
 
-    public void setProductID(int productID) {
+    public void setProductID(String productID) {
         this.productID = productID;
     }
 
