@@ -216,7 +216,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
-
                             }
 
                             // ...
@@ -236,10 +235,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                                 // shared pref
-                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = pref.edit();
-                                editor.putString("email",tmpEmail);
-
+                                SharedPreferences emailPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                SharedPreferences.Editor emailEditor = emailPref.edit();
+                                emailEditor.putString("email",tmpEmail);
 
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
