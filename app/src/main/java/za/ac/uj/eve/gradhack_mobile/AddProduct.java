@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,20 +34,11 @@ public class AddProduct extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Products");
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userID = dataSnapshot.getKey();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+        SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
+        final String email = preferences.getString("email", "");
+        Log.d("AddProduct","A");
+        userID = DatabaseWrapper.getUserID(email);
+        Log.d("AddProduct","B");
         txtName = (EditText)findViewById(R.id.txtItemName);
         txtType = (EditText)findViewById(R.id.txtType);
         txtSellBy = (EditText)findViewById(R.id.txtSellBy);

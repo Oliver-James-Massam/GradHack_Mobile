@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -217,6 +219,10 @@ public class MainActivity extends AppCompatActivity
         }*/ else if (id == R.id.navScanner) {
             startActivity(new Intent(MainActivity.this, ScannerQr.class));
         } else if (id == R.id.navLogout) {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

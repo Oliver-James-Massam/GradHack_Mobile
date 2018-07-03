@@ -57,11 +57,10 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                 startActivity(new Intent(ListProductsActivity_Stores.this, AddProduct.class));
             }
         });
+        /*
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         final String email = preferences.getString("email", "");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final String UserID = DatabaseWrapper.getUserID(email);
-
 
         DatabaseReference ref = database.getReference("Products");
         final ArrayList<Product> items = new ArrayList<>();
@@ -70,11 +69,18 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("ListProducts","A");
+                String UserID = "A";
+                SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
+                final String email = preferences.getString("email", "");
+                UserID = DatabaseWrapper.getUserID(email);
+
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
 
                     Product product  = snap.getValue(Product.class);
-                    if (product.StoreID.equals(UserID))
+
+                    if (product != null && UserID != null && product.StoreID.equals(UserID))
                         items.add(product);
                 }
                 String[] itemArray = new String[items.size()];
@@ -91,7 +97,7 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
+        });*/
     }
 
 
@@ -99,7 +105,7 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        /*
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Products");
         final ArrayList<Product> items = new ArrayList<>();
@@ -129,6 +135,6 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-*/
+
     }
 }
