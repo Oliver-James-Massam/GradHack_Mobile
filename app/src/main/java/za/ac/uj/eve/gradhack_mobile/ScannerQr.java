@@ -43,27 +43,34 @@ public class ScannerQr  extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        Intent intent = new Intent(this,MainActivity.class);
         if(result != null){
             if(result.getContents()==null){
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
             }
+
             else {
                 StringTokenizer tok = new StringTokenizer(result.getContents(),"#");
-                String name = tok.nextToken();
-                String type = tok.nextToken();
-                Intent intent = new Intent(this,MainActivity.class);
-                if (name == "Apples"){
-                    intent = new Intent(this,MainActivity.class);
+                if(tok.countTokens() == 1){
+                    intent = new Intent(this,PickUpAuth.class);
                 }else{
-                    if (name != "Store"){
-                        intent = new Intent(this,MainActivity.class);
+                    String name = tok.nextToken();
+                    String type = tok.nextToken();
+
+                    if (type == "fruit"){
+                        intent = new Intent(this,ProductDetailsActivity.class);
+                    }else{
+                        intent = new Intent(this,ProductDetailsActivity.class);
                     }
+
                 }
                 startActivity(intent);
+                }
+
             }
-        }
-        else {
-            super.onActivityResult(requestCode, resultCode, data);
+        else
+        {
+           super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
