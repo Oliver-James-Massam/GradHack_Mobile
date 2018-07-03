@@ -22,18 +22,23 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+
         </activity>
         <activity android:name=".ProductDetailsActivity"
             android:label=" Product Details">
         </activity>
-        <activity android:name=".RequestFoodActivity_NGO" />
-        <activity android:name=".ListProductsActivity_Stores" />
-        <activity android:name=".ViewOrdersActivity">
+        <activity android:name=".RequestFoodActivity_NGO" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
+
+        </activity>
+        <activity android:name=".ListProductsActivity_Stores" >
+
+        </activity>
+        <activity android:name=".ViewOrdersActivity">
 
 
         </activity>
