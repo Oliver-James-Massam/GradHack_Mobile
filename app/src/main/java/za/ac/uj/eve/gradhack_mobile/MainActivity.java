@@ -216,6 +216,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, RequestFoodActivity_NGO.class));
         }*/ else if (id == R.id.navScanner) {
             startActivity(new Intent(MainActivity.this, ScannerQr.class));
+        } else if (id == R.id.navLogout) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

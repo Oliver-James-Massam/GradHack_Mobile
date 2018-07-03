@@ -28,5 +28,9 @@
             android:id="@+id/navScanner"
             android:icon="@drawable/ic_menu_camera"
             android:title="Scan QR Code" />
+        <item
+            android:id="@+id/navLogout"
+            android:icon="@drawable/baseline_person_black_18dp"
+            android:title="Logout" />
     </group>
 </menu>
