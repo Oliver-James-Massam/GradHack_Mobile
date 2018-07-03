@@ -47,13 +47,13 @@ public class ViewOrdersActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.listview);
 
         for(int i = 0; i < values.size(); i++) {
-            data.add("Order #" + i);
+            data.add(" Order #" + i);
         }
         lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewOrdersActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewOrdersActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -79,16 +79,16 @@ public class ViewOrdersActivity extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                //viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+//            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                }
+//            });
             mainViewholder.title.setText(getItem(position));
 
             return convertView;
@@ -98,6 +98,6 @@ public class ViewOrdersActivity extends AppCompatActivity {
 
         ImageView thumbnail;
         TextView title;
-        Button button;
+        //Button button;
     }
 }

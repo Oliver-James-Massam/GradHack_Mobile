@@ -119,16 +119,16 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
                 RequestFoodActivity_NGO.ViewHolder viewHolder = new RequestFoodActivity_NGO.ViewHolder();
                 viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                //viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (RequestFoodActivity_NGO.ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+//            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                }
+//            });
             mainViewholder.title.setText(getItem(position));
 
             return convertView;
@@ -138,6 +138,6 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
 
         ImageView thumbnail;
         TextView title;
-        Button button;
+        //Button button;
     }
 }
