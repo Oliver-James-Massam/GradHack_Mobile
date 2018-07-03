@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,7 +79,7 @@ public class OrderAmountInput extends DialogFragment
                             int value = Integer.parseInt(txtInput.getText().toString());
 
                             db.dao_database().insertOrder(new Orders(storeID, userID, productID, value));
-
+                            Toast.makeText(getContext(), "Order successfully added", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
