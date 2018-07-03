@@ -70,5 +70,5 @@
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
         android:text="@string/prompt_button_add"
-        android:textColor="#fff" />
+        android:textColor="@color/buttonLabel" />
 </LinearLayout>

@@ -5,9 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navListProducts"
+            android:id="@+id/navUserTypeFunction"
             android:icon="@drawable/baseline_list_black_18dp"
             android:title="Products Listed" />
+        <!--<item-->
+            <!--android:id="@+id/navListProducts"-->
+            <!--android:icon="@drawable/baseline_list_black_18dp"-->
+            <!--android:title="Products Listed" />-->
         <item
             android:id="@+id/navViewOrders"
             android:icon="@drawable/baseline_shopping_basket_black_18dp"
@@ -16,13 +20,13 @@
             android:id="@+id/navLeaderboard"
             android:icon="@drawable/baseline_assessment_black_18dp"
             android:title="Leaderboard" />
-        <item
-            android:id="@+id/navRequestFood"
-            android:icon="@drawable/baseline_shopping_cart_black_18dp"
-            android:title="Place Order" />
+        <!--<item-->
+            <!--android:id="@+id/navRequestFood"-->
+            <!--android:icon="@drawable/baseline_shopping_cart_black_18dp"-->
+            <!--android:title="Place Order" />-->
         <item
             android:id="@+id/navScanner"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Scan Product or Confirm Order" />
+            android:title="Scan QR Code" />
     </group>
 </menu>

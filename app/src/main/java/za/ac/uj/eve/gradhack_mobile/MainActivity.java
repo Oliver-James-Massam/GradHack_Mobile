@@ -93,23 +93,6 @@ public class MainActivity extends AppCompatActivity
                         break;
                     }
                 }
-//                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//
-//                // get menu from navigationView
-//                Menu menu = navigationView.getMenu();
-//
-//                // find MenuItem you want to change
-//                MenuItem nav_camara = menu.findItem(R.id.nav_camara);
-//
-//                // set new title to the MenuItem
-//                nav_camara.setTitle("NewTitleForCamera");
-//
-//                // do the same for other MenuItems
-//                MenuItem nav_gallery = menu.findItem(R.id.nav_gallery);
-//                nav_gallery.setTitle("NewTitleForGallery");
-//
-//                // add NavigationItemSelectedListener to check the navigation clicks
-//                navigationView.setNavigationItemSelectedListener(this);
                 //Log.d(TAG, "User name: " + user.getName() + ", email " + user.getEmail());
             }
 
@@ -127,6 +110,27 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+
+        // find MenuItem you want to change
+        MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
+
+        if(userType == 0)// Stores
+        {
+            // set new title to the MenuItem
+            typeFunction.setTitle("Products Listed");
+            typeFunction.setIcon(R.drawable.baseline_list_black_18dp);
+        }
+        else if (userType == 1)// NGO
+        {
+            // set new title to the MenuItem
+            typeFunction.setTitle("Place Order");
+            typeFunction.setIcon(R.drawable.baseline_shopping_cart_black_18dp);
+        }
+
+        // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -189,15 +193,26 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navListProducts) {
+        if(id == R.id.navUserTypeFunction)
+        {
+            if(userType == 0)
+            {
+                startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
+            }
+            else if(userType == 1)
+            {
+                startActivity(new Intent(MainActivity.this, RequestFoodActivity_NGO.class));
+            }
+        }
+        /*if (id == R.id.navListProducts) {
             startActivity(new Intent(MainActivity.this, ListProductsActivity_Stores.class));
-        } else if (id == R.id.navViewOrders) {
+        }*/ else if (id == R.id.navViewOrders) {
             startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
         } else if (id == R.id.navLeaderboard) {
             startActivity(new Intent(MainActivity.this, DonationLeaderboardActivity.class));
-        } else if (id == R.id.navRequestFood) {
+        } /*else if (id == R.id.navRequestFood) {
             startActivity(new Intent(MainActivity.this, RequestFoodActivity_NGO.class));
-        } else if (id == R.id.navScanner) {
+        }*/ else if (id == R.id.navScanner) {
             startActivity(new Intent(MainActivity.this, ScannerQr.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

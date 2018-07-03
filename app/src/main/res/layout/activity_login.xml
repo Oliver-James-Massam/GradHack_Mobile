@@ -66,12 +66,21 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:elevation="4dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textColor="@color/buttonLabel" />
+            <!--<Button-->
+                <!--android:id="@+id/email_sign_in_button"-->
+                <!--style="?android:textAppearanceSmall"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:text="@string/action_sign_in"-->
+                <!--android:textStyle="bold" />-->
 
         </LinearLayout>
     </ScrollView>
