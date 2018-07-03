@@ -41,6 +41,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final TextView productQuantity = (TextView) findViewById(R.id.productQuantity);
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference("Products");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,6 +62,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                 strType = "Fruit";
                                 break;
                             }
+                            case 1:
+                            {
+                                strType = "Cannned Food";
+                                break;
+                            }
                         }
                         productType.setText(strType);
                         productQuantity.setText(product.Quantity);
@@ -74,22 +81,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         ImageView qrCodeImage = (ImageView) findViewById(R.id.qrCode);
         MultiFormatWriter mfw = new MultiFormatWriter();
-/*
+
         try{
-            String text2qr = "";//text.getText().toString().trim();
-            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,200,200);
+            String text2qr = "Apples#0#400";//text.getText().toString().trim();
+            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,600,600);
             BarcodeEncoder be = new BarcodeEncoder();
             Bitmap bitmap = be.createBitmap(bm);
             qrCodeImage.setImageBitmap(bitmap);
         }catch(WriterException e){
             e.printStackTrace();
         }
-*/
+
     }
 }

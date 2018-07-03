@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,6 +99,7 @@ public class AddProduct extends AppCompatActivity
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Products");
                     String productID = mDatabase.push().getKey();
                     mDatabase.child(productID).setValue(product);
+                    startActivity(new Intent(AddProduct.this, ListProductsActivity_Stores.class));
                 }
             }
         });
