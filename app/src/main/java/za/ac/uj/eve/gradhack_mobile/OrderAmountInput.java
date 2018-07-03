@@ -93,7 +93,7 @@ public class OrderAmountInput extends DialogFragment
                                         Product product  = snap.getValue(Product.class);
                                         if (snap.getKey().equals(productID))
                                         {
-                                            snap.getRef().child("Amount").setValue(product.Quantity - amount);
+                                            snap.getRef().child("Quantity").setValue(product.Quantity - amount);
                                         }
                                     }
                                 }
