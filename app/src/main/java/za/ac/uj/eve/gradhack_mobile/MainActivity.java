@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "LoginActivityDebug";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,28 +68,18 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        final String emailLoggedIn = preferences.getString("email", null);
+        String email = preferences.getString("email", null);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference("users");
+        DatabaseReference mDatabase = database.getReference("products");
         final ArrayList<User> items = new ArrayList<>();
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            for(DataSnapshot snap: dataSnapshot.getChildren())
-            {
+
                 User user = dataSnapshot.getValue(User.class);
-                items.add(user);
-            }
 
-            for(User user: items)
-            {
-                if(user.Email.equals(emailLoggedIn))
-                {
-
-                }
-            }
                 //Log.d(TAG, "User name: " + user.getName() + ", email " + user.getEmail());
             }
 
