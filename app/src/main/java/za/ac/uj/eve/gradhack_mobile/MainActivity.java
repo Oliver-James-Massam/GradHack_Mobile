@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity
         String name = "PnP";//change to new user name
         String password = "12345678";//change to new user password
         User tmpUser = new User(name,"0721231234",name + "@email.com","0,0",0,0);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String userId = mDatabase.push().getKey();
         mDatabase.child(userId).setValue(tmpUser);
 
          mAuth.createUserWithEmailAndPassword(name + "@email.com", password)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
-*/
+        /**/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
