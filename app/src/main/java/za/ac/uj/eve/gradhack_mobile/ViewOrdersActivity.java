@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,45 +30,30 @@ import java.util.List;
 public class ViewOrdersActivity extends AppCompatActivity {
 
     private ArrayList<String> data = new ArrayList<String>();
-
+    private AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Orders");
-        final ArrayList<Order> orders = new ArrayList<>();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = database.getReference("Orders");
+        //Open DB
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "finance")
+                .allowMainThreadQueries()
+                .build();
 
-                for (DataSnapshot snap : dataSnapshot.getChildren())
-                {
-
-                    Order o= snap.getValue(Order.class);
-                    orders.add(o);
-                }
-                String[] orderArray = new String[orders.size()];
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-
+        List<Orders> values = db.dao_database().getOrdersAll();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_orders);
         ListView lv = (ListView) findViewById(R.id.listview);
 
-        for(int i = 0; i < orders.size(); i++) {
-            data.add("Order" + i);
+        for(int i = 0; i < values.size(); i++) {
+            data.add(" Order #" + i);
         }
         lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewOrdersActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewOrdersActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -93,16 +79,16 @@ public class ViewOrdersActivity extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
                 viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
+                //viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+//            mainViewholder.button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                }
+//            });
             mainViewholder.title.setText(getItem(position));
 
             return convertView;
@@ -112,6 +98,6 @@ public class ViewOrdersActivity extends AppCompatActivity {
 
         ImageView thumbnail;
         TextView title;
-        Button button;
+        //Button button;
     }
 }

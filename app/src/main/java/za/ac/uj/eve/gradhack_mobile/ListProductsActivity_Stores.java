@@ -61,7 +61,6 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
             }
         });
 
-
         /*
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         final String email = preferences.getString("email", "");

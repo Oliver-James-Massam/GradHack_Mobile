@@ -20,7 +20,6 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
 
-        final String product = preferences.getString("product_key", "");
+        final String productID = preferences.getString("product_key", "");
 
         final TextView productName = (TextView) findViewById(R.id.productName);
 
@@ -41,6 +40,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final TextView productQuantity = (TextView) findViewById(R.id.productQuantity);
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase;
+
+        mDatabase = database.getReference("Products");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -49,7 +52,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Product product  = snap.getValue(Product.class);
-                    if (snap.getKey().equals(product))
+                    if (snap.getKey().equals(productID))
                     {
                         productName.setText(product.Name);
                         String strType = "";
@@ -58,6 +61,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             case 0:
                             {
                                 strType = "Fruit";
+                                break;
+                            }
+                            case 1:
+                            {
+                                strType = "Cannned Food";
                                 break;
                             }
                         }
@@ -74,22 +82,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         ImageView qrCodeImage = (ImageView) findViewById(R.id.qrCode);
         MultiFormatWriter mfw = new MultiFormatWriter();
-/*
+
         try{
-            String text2qr = "";//text.getText().toString().trim();
-            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,200,200);
+            String text2qr = "Apples#0#400";//text.getText().toString().trim();
+            BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,600,600);
             BarcodeEncoder be = new BarcodeEncoder();
             Bitmap bitmap = be.createBitmap(bm);
             qrCodeImage.setImageBitmap(bitmap);
         }catch(WriterException e){
             e.printStackTrace();
         }
-*/
+
     }
 }
