@@ -18,9 +18,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         //Icon in foreground
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_launcher_foreground);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.ic_launcher_foreground);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -35,11 +35,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+
         TextView productName = (TextView) findViewById(R.id.productName);
-        productName.setText("Name: " + getString(R.string.tab)+"Hello");
+        productName.setText("Name:     " + getString(R.string.tab)+"Hello");
 
         TextView productType = (TextView) findViewById(R.id.productType);
-        productType.setText("Type: " + getString(R.string.tab)+"Hello");
+        productType.setText("Type:     " + getString(R.string.tab)+"Hello");
 
         TextView productQuantity = (TextView) findViewById(R.id.productQuantity);
         productQuantity.setText("Quantity: " + getString(R.string.tab)+"Hello");
