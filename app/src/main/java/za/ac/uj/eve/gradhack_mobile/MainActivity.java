@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.annotation.TargetApi;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +19,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.firebase.database.DatabaseReference;
@@ -107,16 +112,19 @@ public class MainActivity extends AppCompatActivity
 
         // find MenuItem you want to change
         final MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
-
+        final ArrayList<User> users = new ArrayList<>();
+        final ListView listItemView = (ListView)findViewById(R.id.LeaderBoardList);
+        final TextView myPoints = (TextView)findViewById(R.id.my_points);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snap: dataSnapshot.getChildren())
                 {
                     User user = snap.getValue(User.class);
-
+                    users.add(user);
                     if(user.Email.equals(email))
                     {
+                        myPoints.setText("My Points: " + user.Points); //Adjust points here
                         userType = user.Type;
                         //Log.d(TAG, "User name: " + user.Name + ", email " + user.Email + " , Type: " + userType);
                         switch(userType)// Stores
@@ -141,7 +149,29 @@ public class MainActivity extends AppCompatActivity
                         break;
                     }
                 }
+                //Beautiful bubble sort, GRRRRRR
+                for (int i = 0; i < users.size() - 1;i++)
+                {
+                    for (int k = i + 1 ; k < users.size();k++)
+                    {
+                        if (users.get(i).Points < users.get(k).Points)
+                        {
+                            User swap = users.get(i);
+                            users.set(i,users.get(k));
+                            users.set(k,swap);
+                        }
+                    }
+                }
 
+                String[] usernames = new String[users.size()];
+                for (int i = 0; i < users.size();i++)
+                {
+                    usernames[i] = users.get(i).Name;
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_2, android.R.id.text1, usernames);
+
+                listItemView.setAdapter(adapter);
             }
 
             @Override
@@ -252,4 +282,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
