@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "LoginActivityDebug";
+    private static int userType = 0; //Store = 0; NGO = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,18 +69,47 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String email = preferences.getString("email", null);
+        final String email = preferences.getString("email", null);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference("products");
         final ArrayList<User> items = new ArrayList<>();
 
-        mDatabase.child(email).addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren())
+                {
+                    User user = snap.getValue(User.class);
+                    items.add(user);
+                }
 
-                User user = dataSnapshot.getValue(User.class);
-
+                for(User user: items)
+                {
+                    if(user.Email.equals(email))
+                    {
+                        userType = user.Type;
+                        Log.d(TAG, "User name: " + user.Name + ", email " + user.Email);
+                        break;
+                    }
+                }
+//                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//
+//                // get menu from navigationView
+//                Menu menu = navigationView.getMenu();
+//
+//                // find MenuItem you want to change
+//                MenuItem nav_camara = menu.findItem(R.id.nav_camara);
+//
+//                // set new title to the MenuItem
+//                nav_camara.setTitle("NewTitleForCamera");
+//
+//                // do the same for other MenuItems
+//                MenuItem nav_gallery = menu.findItem(R.id.nav_gallery);
+//                nav_gallery.setTitle("NewTitleForGallery");
+//
+//                // add NavigationItemSelectedListener to check the navigation clicks
+//                navigationView.setNavigationItemSelectedListener(this);
                 //Log.d(TAG, "User name: " + user.getName() + ", email " + user.getEmail());
             }
 
