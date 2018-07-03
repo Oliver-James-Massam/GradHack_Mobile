@@ -36,9 +36,9 @@ public class AddProduct extends AppCompatActivity
         setContentView(R.layout.activity_add_product);
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
         final String email = preferences.getString("email", "");
-        Log.d("AddProduct","A");
-        userID = DatabaseWrapper.getUserID(email);
-        Log.d("AddProduct","B");
+        final String userID = preferences.getString("UserID", "");
+
+
         txtName = (EditText)findViewById(R.id.txtItemName);
         txtType = (EditText)findViewById(R.id.txtType);
         txtSellBy = (EditText)findViewById(R.id.txtSellBy);
@@ -94,6 +94,7 @@ public class AddProduct extends AppCompatActivity
                 else
                 {
                     Product product = new Product(strBestBefore,strSellBy,strName,Integer.parseInt(strType),Integer.parseInt(strQuantity),userID);
+
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Products");
                     String productID = mDatabase.push().getKey();
                     mDatabase.child(productID).setValue(product);

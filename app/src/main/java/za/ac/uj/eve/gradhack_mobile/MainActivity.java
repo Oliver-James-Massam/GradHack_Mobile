@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -19,6 +20,9 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,16 +45,19 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        String name = "store";//change to new user name
+        DatabaseReference mDatabase;
+        /*
+        final FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        String name = "PnP";//change to new user name
         String password = "12345678";//change to new user password
         User tmpUser = new User(name,"0721231234",name + "@email.com","0,0",0,0);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String userId = mDatabase.push().getKey();
         mDatabase.child(userId).setValue(tmpUser);
 
          mAuth.createUserWithEmailAndPassword(name + "@email.com", password)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -60,13 +67,13 @@ public class MainActivity extends AppCompatActivity
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
-*/
+        /**/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         final String email = preferences.getString("email", "");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference("Users");
+         mDatabase = database.getReference("Users");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
