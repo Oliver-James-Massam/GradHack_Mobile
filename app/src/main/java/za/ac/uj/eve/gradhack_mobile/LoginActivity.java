@@ -117,8 +117,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        /*
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if (currentUser != null)
+        {
+            SharedPreferences emailPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor emailEditor = emailPref.edit();
+            emailEditor.putString("email",currentUser.getEmail());
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        */
     }
 
     private boolean mayRequestContacts() {
@@ -230,14 +238,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
+                                Log.d(TAG, "signInWithEmail:success=" + tmpEmail);
 
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                                 // shared pref
                                 SharedPreferences emailPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                                 SharedPreferences.Editor emailEditor = emailPref.edit();
-                                emailEditor.putString("email",tmpEmail);
+                                emailEditor.putString("email",tmpEmail).apply();
 
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {

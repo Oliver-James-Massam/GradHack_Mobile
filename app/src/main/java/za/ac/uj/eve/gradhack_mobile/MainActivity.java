@@ -33,7 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "LoginActivityDebug";
+    private static final String TAG = "MainActivityDebug";
     private static int userType = 0; //Store = 0; NGO = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,39 +69,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         SharedPreferences preferences = getSharedPreferences("MyPref", MODE_PRIVATE);
-        final String email = preferences.getString("email", null);
+        final String email = preferences.getString("email", "");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference("products");
-        final ArrayList<User> items = new ArrayList<>();
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snap: dataSnapshot.getChildren())
-                {
-                    User user = snap.getValue(User.class);
-                    items.add(user);
-                }
-
-                for(User user: items)
-                {
-                    if(user.Email.equals(email))
-                    {
-                        userType = user.Type;
-                        Log.d(TAG, "User name: " + user.Name + ", email " + user.Email);
-                        break;
-                    }
-                }
-                //Log.d(TAG, "User name: " + user.getName() + ", email " + user.getEmail());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                //Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+        DatabaseReference mDatabase = database.getReference("Users");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -115,20 +86,51 @@ public class MainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
 
         // find MenuItem you want to change
-        MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
+        final MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
 
-        if(userType == 0)// Stores
-        {
-            // set new title to the MenuItem
-            typeFunction.setTitle("Products Listed");
-            typeFunction.setIcon(R.drawable.baseline_list_black_18dp);
-        }
-        else if (userType == 1)// NGO
-        {
-            // set new title to the MenuItem
-            typeFunction.setTitle("Place Order");
-            typeFunction.setIcon(R.drawable.baseline_shopping_cart_black_18dp);
-        }
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren())
+                {
+                    User user = snap.getValue(User.class);
+
+                    if(user.Email.equals(email))
+                    {
+                        userType = user.Type;
+                        //Log.d(TAG, "User name: " + user.Name + ", email " + user.Email + " , Type: " + userType);
+                        switch(userType)// Stores
+                        {
+                            case 0:
+                            {
+                                // set new title to the MenuItem
+                                typeFunction.setTitle("Products Listed");
+                                typeFunction.setIcon(R.drawable.baseline_list_black_18dp);
+
+                                break;
+                            }
+
+                            case 1:
+                            {
+                                // set new title to the MenuItem
+                                typeFunction.setTitle("Place Order");
+                                typeFunction.setIcon(R.drawable.baseline_shopping_cart_black_18dp);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
 
         // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
