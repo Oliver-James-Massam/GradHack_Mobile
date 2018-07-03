@@ -76,6 +76,7 @@ public class ListProductsActivity_Stores extends AppCompatActivity {
                     Product product  = snap.getValue(Product.class);
                     if (product.StoreID.equals(UserID))
                         items.add(product);
+                    Toast.makeText(ListProductsActivity_Stores.this, "Fab Clicked", Toast.LENGTH_LONG).show();
                 }
                 String[] itemArray = new String[items.size()];
                 for (int i = 0; i < items.size();i++)
