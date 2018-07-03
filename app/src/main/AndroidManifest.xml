@@ -52,6 +52,10 @@
         <activity android:name=".OrderListActivity"
             android:label=" List of Orders">
         </activity>
+
+        <activity android:name=".OrdersDetails"
+            android:label=" Order Details">
+        </activity>
     </application>
 
 </manifest>
