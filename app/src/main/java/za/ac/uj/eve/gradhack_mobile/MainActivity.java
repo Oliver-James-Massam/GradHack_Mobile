@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivityDebug";
     private static int userType = 0; //Store = 0; NGO = 1;
+    private AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,13 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
 */
+        //Open DB
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "finance")
+                .allowMainThreadQueries()
+                .build();
+
+        db.dao_database().insertOrder(new Orders(1, 1, 1, 1));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -136,6 +147,9 @@ public class MainActivity extends AppCompatActivity
 
         // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
+        List<Orders> values = db.dao_database().getOrdersAll();
+        Orders temp = values.get(0);
+        Toast.makeText(this, "OrderID: "+ temp.getOrderID() + " StoreID: " + temp.getStoreID(), Toast.LENGTH_SHORT).show();
     }
 
     private boolean doubleBackToExitPressedOnce;
