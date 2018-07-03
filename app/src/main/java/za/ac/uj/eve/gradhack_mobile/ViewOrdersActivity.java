@@ -47,7 +47,7 @@ public class ViewOrdersActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.listview);
 
         for(int i = 0; i < values.size(); i++) {
-            data.add(" Order #" + i);
+            data.add(" Order #" + values.get(i).getOrderID());
         }
         lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

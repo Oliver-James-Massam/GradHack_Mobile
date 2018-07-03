@@ -30,10 +30,17 @@
         <activity
             android:name=".ProductDetailsActivity"
             android:label=" Product Details"></activity>
-        <activity android:name=".RequestFoodActivity_NGO" />
-        <activity android:name=".ListProductsActivity_Stores"></activity>
-        <activity android:name=".ViewOrdersActivity" />
-        <activity android:name=".DonationLeaderboardActivity" />
+        <activity android:name=".RequestFoodActivity_NGO"
+            android:label=" Request Food">
+        </activity>
+        <activity android:name=".ListProductsActivity_Stores"
+            android:label=" List of Products"></activity>
+        <activity android:name=".ViewOrdersActivity"
+            android:label=" Order Details">
+        </activity>
+        <activity android:name=".DonationLeaderboardActivity"
+            android:label=" Leaderboard">
+        </activity>
         <activity android:name=".AddProduct" />
         <activity
             android:name=".zbraScan"
@@ -41,7 +48,9 @@
         <activity
             android:name=".ScannerQr"
             android:label=" Scanner Generator"></activity>
-        <activity android:name=".OrderListActivity"></activity>
+        <activity android:name=".OrderListActivity"
+            android:label=" List of Orders">
+        </activity>
     </application>
 
 </manifest>
