@@ -8,6 +8,7 @@ public class Product
     public String SellByDate;
     public String Name;
     public int Type;
+    public String StoreID;
     public int Quantity;
 
     public Product()
@@ -15,12 +16,13 @@ public class Product
 
     }
 
-    public Product(String BestBefore,String SellBy,String Name,int Type,int Quantity)
+    public Product(String BestBefore,String SellBy,String Name,int Type,int Quantity,String StoreID)
     {
         this.BestBeforeDate = BestBefore;
         this.SellByDate = SellBy;
         this.Name = Name;
         this.Type = Type;
         this.Quantity = Quantity;
+        this.StoreID = StoreID;
     }
 }
