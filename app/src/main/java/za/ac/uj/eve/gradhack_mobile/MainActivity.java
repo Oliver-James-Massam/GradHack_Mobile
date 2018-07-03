@@ -1,5 +1,6 @@
 package za.ac.uj.eve.gradhack_mobile;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivityDebug";
     private static int userType = 0; //Store = 0; NGO = 1;
+    private AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +56,12 @@ public class MainActivity extends AppCompatActivity
         String name = "PnP";//change to new user name
         String password = "12345678";//change to new user password
         User tmpUser = new User(name,"0721231234",name + "@email.com","0,0",0,0);
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         String userId = mDatabase.push().getKey();
         mDatabase.child(userId).setValue(tmpUser);
 
          mAuth.createUserWithEmailAndPassword(name + "@email.com", password)
-                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -67,13 +71,20 @@ public class MainActivity extends AppCompatActivity
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.",
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
-        /**/
+*/
+        //Open DB
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "finance")
+                .allowMainThreadQueries()
+                .build();
+
+        db.dao_database().insertOrder(new Orders(1, 1, 1, 1));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -143,6 +154,9 @@ public class MainActivity extends AppCompatActivity
 
         // add NavigationItemSelectedListener to check the navigation clicks
         navigationView.setNavigationItemSelectedListener(this);
+        List<Orders> values = db.dao_database().getOrdersAll();
+        Orders temp = values.get(0);
+        Toast.makeText(this, "OrderID: "+ temp.getOrderID() + " StoreID: " + temp.getStoreID(), Toast.LENGTH_SHORT).show();
     }
 
     private boolean doubleBackToExitPressedOnce;
