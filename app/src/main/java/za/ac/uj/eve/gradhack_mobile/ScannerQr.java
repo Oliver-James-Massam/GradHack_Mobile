@@ -2,8 +2,10 @@ package za.ac.uj.eve.gradhack_mobile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -54,14 +56,18 @@ public class ScannerQr  extends AppCompatActivity {
                 if(tok.countTokens() == 1){
                     intent = new Intent(this,PickUpAuth.class);
                 }else{
+                    String ID = tok.nextToken();
                     String name = tok.nextToken();
                     String type = tok.nextToken();
-
                     if (type == "fruit"){
                         intent = new Intent(this,ProductDetailsActivity.class);
                     }else{
                         intent = new Intent(this,ProductDetailsActivity.class);
                     }
+                    SharedPreferences productPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor productEditor = productPref.edit();
+                    Log.d("Product_List",ID);
+                    productEditor.putString("product_key",ID).apply();
 
                 }
                 startActivity(intent);

@@ -77,7 +77,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         MultiFormatWriter mfw = new MultiFormatWriter();
 
                         try{
-                            String text2qr = product.Name + "#" + strType + "#" + strQuantity;//text.getText().toString().trim();
+                            String text2qr = productID + "#" +  product.Name + "#" + strType + "#" + strQuantity;//text.getText().toString().trim();
                             BitMatrix bm = mfw.encode(text2qr, BarcodeFormat.QR_CODE,600,600);
                             BarcodeEncoder be = new BarcodeEncoder();
                             Bitmap bitmap = be.createBitmap(bm);
