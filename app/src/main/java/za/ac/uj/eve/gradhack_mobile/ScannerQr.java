@@ -17,6 +17,11 @@ public class ScannerQr  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_qr);
+        //Icon in foreground
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.ic_launcher_foreground);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         scan_btn = (Button) findViewById(R.id.scan_btn);
         final Activity activity = this;
         scan_btn.setOnClickListener(new View.OnClickListener() {
