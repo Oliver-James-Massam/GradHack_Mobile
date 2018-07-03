@@ -32,10 +32,37 @@ public class ViewOrdersActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Orders");
+        final ArrayList<Order> orders = new ArrayList<>();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snap : dataSnapshot.getChildren())
+                {
+
+                    Order o= snap.getValue(Order.class);
+                    orders.add(o);
+                }
+                String[] orderArray = new String[orders.size()];
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_orders);
         ListView lv = (ListView) findViewById(R.id.listview);
-        generateListContent();
+
+        for(int i = 0; i < orders.size(); i++) {
+            data.add("Order" + i);
+        }
         lv.setAdapter(new MyListAdaper(this, R.layout.list_item, data));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,11 +72,6 @@ public class ViewOrdersActivity extends AppCompatActivity {
         });
     }
 
-    private void generateListContent() {
-        for(int i = 0; i < 55; i++) {
-            data.add("This is row number " + i);
-        }
-    }
 
 
 
