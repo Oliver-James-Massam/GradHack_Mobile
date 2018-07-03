@@ -39,10 +39,9 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity {
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
 
-                    Product o= snap.getValue(Product.class);
+                    Product o = snap.getValue(Product.class);
                     products.add(o);
                 }
-                String[] orderArray = new String[products.size()];
             }
 
             @Override
