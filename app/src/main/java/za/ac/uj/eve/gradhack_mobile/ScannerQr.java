@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.StringTokenizer;
+
 public class ScannerQr  extends AppCompatActivity {
     private Button scan_btn;
     @Override
@@ -46,7 +48,18 @@ public class ScannerQr  extends AppCompatActivity {
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this, result.getContents(),Toast.LENGTH_LONG).show();
+                StringTokenizer tok = new StringTokenizer(result.getContents(),"#");
+                String name = tok.nextToken();
+                String type = tok.nextToken();
+                Intent intent = new Intent(this,MainActivity.class);
+                if (name == "Apples"){
+                    intent = new Intent(this,MainActivity.class);
+                }else{
+                    if (name != "Store"){
+                        intent = new Intent(this,MainActivity.class);
+                    }
+                }
+                startActivity(intent);
             }
         }
         else {
