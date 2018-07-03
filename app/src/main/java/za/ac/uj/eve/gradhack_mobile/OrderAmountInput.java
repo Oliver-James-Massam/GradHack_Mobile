@@ -25,6 +25,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class OrderAmountInput extends DialogFragment
 {
         private static Product productInfo = new Product();
+        private static int amount;
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
@@ -43,7 +44,6 @@ public class OrderAmountInput extends DialogFragment
                     for (DataSnapshot snap : dataSnapshot.getChildren())
                     {
                         Product product  = snap.getValue(Product.class);
-                        Log.d("Spiderman", "Optimus Prime: " + productID + " " + snap.getKey());
                         if (snap.getKey().equals(productID))
                         {
 
@@ -77,9 +77,35 @@ public class OrderAmountInput extends DialogFragment
                                     .allowMainThreadQueries()
                                     .build();
                             int value = Integer.parseInt(txtInput.getText().toString());
+                            amount = value;
+                            if (amount > productInfo.Quantity)
+                                amount = productInfo.Quantity;
+                            //Subtract from database
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference ref = database.getReference("Products");
+
+                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot)
+                                {
+                                    for (DataSnapshot snap : dataSnapshot.getChildren())
+                                    {
+                                        Product product  = snap.getValue(Product.class);
+                                        if (snap.getKey().equals(productID))
+                                        {
+                                            snap.getRef().child("Quantity").setValue(product.Quantity - amount);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    System.out.println("The read failed: " + databaseError.getCode());
+                                }
+                            });
 
                             db.dao_database().insertOrder(new Orders(storeID, userID, productID, value));
-                            Toast.makeText(getContext(), "Order successfully added", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Order placed for " + String.valueOf(amount) + " item " + productInfo.Name , Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

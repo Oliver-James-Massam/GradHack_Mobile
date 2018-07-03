@@ -17,7 +17,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -44,11 +48,7 @@
         <activity
             android:name=".ScannerQr"
             android:label=" Scanner Generator">
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        </activity>
         <activity android:name=".OrderListActivity"
             android:label=" List of Orders">
         </activity>
