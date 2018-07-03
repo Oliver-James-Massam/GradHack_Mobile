@@ -1,8 +1,14 @@
 package za.ac.uj.eve.gradhack_mobile;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +29,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  RequestFoodActivity_NGO  extends AppCompatActivity {
+public class  RequestFoodActivity_NGO  extends AppCompatActivity{
 
     private ArrayList<String> data = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_request_food__ngo);
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Products");
-        final ArrayList<Product> products = new ArrayList<>();
+
+        final ArrayList<Pair<String,Product>> items = new ArrayList<>();
+
+        final ListView listItemView = (ListView) findViewById(R.id.requestFoodList);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -39,9 +51,17 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity {
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
 
-                    Product o = snap.getValue(Product.class);
-                    products.add(o);
+                    Product product  = snap.getValue(Product.class);
+                    items.add(new Pair<String, Product>(snap.getKey(),product));
                 }
+                String[] itemArray = new String[items.size()];
+                for (int i = 0; i < items.size();i++)
+                {
+                    itemArray[i] = items.get(i).second.Name;
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(RequestFoodActivity_NGO.this,android.R.layout.simple_list_item_2, android.R.id.text1, itemArray);
+
+                listItemView.setAdapter(adapter);
             }
 
             @Override
@@ -50,20 +70,30 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity {
             }
         });
 
-
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_food__ngo);
-        ListView lv = (ListView) findViewById(R.id.requestFoodList);
-
-        for(int i = 0; i < products.size(); i++) {
-            data.add("Product" + i);
-        }
-        lv.setAdapter(new RequestFoodActivity_NGO.MyListAdaper(this, R.layout.list_item, data));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(RequestFoodActivity_NGO.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DialogFragment dialog = new OrderAmountInput();
+                dialog.show(getSupportFragmentManager(), "OrderAmountInput");
+
+                SharedPreferences productPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor productEditor = productPref.edit();
+                String tmpkey = items.get(i).first;
+                Log.d("Product_List",tmpkey);
+                productEditor.putString("product_key_from_order",tmpkey).apply();
+
+                /*
+                Intent intent = new Intent(RequestFoodActivity_NGO.this,ProductDetailsActivity.class);
+                intent.putExtra("Product Name",listItemView.getItemIdAtPosition(i));
+                // shared pref
+
+                SharedPreferences productPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor productEditor = productPref.edit();
+                String tmpkey = items.get(i).first;
+                Log.d("Product_List",tmpkey);
+                productEditor.putString("product_key",tmpkey).apply();
+                startActivity(intent);
+                */
             }
         });
     }
