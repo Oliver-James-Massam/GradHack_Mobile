@@ -65,7 +65,7 @@ public class OrderAmountInput extends DialogFragment
             final EditText txtInput = (EditText)mView.findViewById(R.id.input);
             builder.setView(mView);
 
-//            txtInput.setHint(productInfo.Quantity);
+           // txtInput.setHint(productInfo.Quantity);
 
             builder.setPositiveButton("Order", new DialogInterface.OnClickListener() {
                         @Override
