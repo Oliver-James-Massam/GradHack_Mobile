@@ -104,7 +104,7 @@ public class OrderAmountInput extends DialogFragment
                                 }
                             });
 
-                            db.dao_database().insertOrder(new Orders(storeID, userID, productID, value));
+                            db.dao_database().insertOrder(new Orders(storeID, userID, productID, amount));
                             Toast.makeText(getContext(), "Order placed for " + String.valueOf(amount) + " item " + productInfo.Name , Toast.LENGTH_SHORT).show();
                         }
                     })

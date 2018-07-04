@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.view.menu.ListMenuItemView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,9 +20,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         final MenuItem typeFunction = menu.findItem(R.id.navUserTypeFunction);
         final ArrayList<User> users = new ArrayList<>();
         final ListView listItemView = (ListView)findViewById(R.id.LeaderBoardList);
+        final ListView points = (ListView)findViewById(R.id.points);
         final TextView myPoints = (TextView)findViewById(R.id.my_points);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -121,7 +126,7 @@ public class MainActivity extends AppCompatActivity
                 for(DataSnapshot snap: dataSnapshot.getChildren())
                 {
                     User user = snap.getValue(User.class);
-                    users.add(user);
+                    if (user.Type == 0 ) users.add(user);
                     if(user.Email.equals(email))
                     {
                         myPoints.setText("My Points: " + user.Points); //Adjust points here
@@ -168,8 +173,19 @@ public class MainActivity extends AppCompatActivity
                 {
                     usernames[i] = users.get(i).Name;
                 }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_2, android.R.id.text1, usernames);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_2, android.R.id.text1, usernames)
+                {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent)
+                    {
+                        View view = super.getView(position,convertView,parent);
+                        TextView a = (TextView)view.findViewById(android.R.id.text1);
+                        TextView b = (TextView)view.findViewById(android.R.id.text2);
+                        a.setText(users.get(position).Name);
+                        b.setText("Points: " + String.valueOf(users.get(position).Points));
+                        return view;
+                    }
+                };
 
                 listItemView.setAdapter(adapter);
             }

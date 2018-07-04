@@ -20,39 +20,15 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/productName"
+                android:id="@+id/orderNumberO"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Name:"
+                android:text="Order:"
                 android:textSize="24sp"/>
 
             <TextView
-                android:id="@+id/productNameAns"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="24sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/productType"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Type:"
-                android:textSize="24sp"/>
-
-            <TextView
-                android:id="@+id/productTypeAns"
+                android:id="@+id/orderNumberOAns"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -68,39 +44,15 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/sellByProd"
+                android:id="@+id/storeNameO"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Sell by:"
+                android:text="Store Name:"
                 android:textSize="24sp"/>
 
             <TextView
-                android:id="@+id/sellByProdAns"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="24sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/bestBeforeProd"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Best before:"
-                android:textSize="24sp"/>
-
-            <TextView
-                android:id="@+id/bestBeforeProdAns"
+                android:id="@+id/storeNameOAns"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -116,7 +68,55 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/productQuantity"
+                android:id="@+id/ngoNameO"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="NGO Name:"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/ngoNameOAns"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/productNameO"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Product Name:"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/productNameOAns"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/productQuantityO"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                 android:textSize="24sp"/>
 
             <TextView
-                android:id="@+id/productQuantityAns"
+                android:id="@+id/productQuantityOAns"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/qrCode"
+                android:id="@+id/qrCodeO"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"

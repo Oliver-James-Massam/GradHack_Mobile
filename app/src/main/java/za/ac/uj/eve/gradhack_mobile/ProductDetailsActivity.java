@@ -34,11 +34,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final String productID = preferences.getString("product_key", "");
 
-        final TextView productName = (TextView) findViewById(R.id.productName);
+        final TextView productName = (TextView) findViewById(R.id.productNameAns);
 
-        final TextView productType = (TextView) findViewById(R.id.productType);
+        final TextView productType = (TextView) findViewById(R.id.productTypeAns);
 
-        final TextView productQuantity = (TextView) findViewById(R.id.productQuantity);
+        final TextView sellBy = (TextView) findViewById(R.id.sellByProdAns);
+
+        final TextView bestBefore = (TextView) findViewById(R.id.bestBeforeProdAns);
+
+        final TextView productQuantity = (TextView) findViewById(R.id.productQuantityAns);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Products");
@@ -51,7 +55,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 for (DataSnapshot snap : dataSnapshot.getChildren())
                 {
                     Product product  = snap.getValue(Product.class);
-                    Log.d("Cheese","Ham");
                     if (snap.getKey().equals(productID))
                     {
                         productName.setText(product.Name);
@@ -70,6 +73,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             }
                         }
                         productType.setText(strType);
+                        sellBy.setText(product.SellByDate);
+                        bestBefore.setText(product.BestBeforeDate);
                         Log.d("Cheese","Ham " + product.Quantity);
                         String strQuantity = String.valueOf(product.Quantity);
                         productQuantity.setText(strQuantity);

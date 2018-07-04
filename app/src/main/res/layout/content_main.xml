@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -14,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:text="Leaderboard"
         android:layout_marginTop="5dp"
+        android:text="Leaderboard"
         android:textSize="40sp"
         android:typeface="serif" />
 
@@ -23,15 +24,19 @@
         android:id="@+id/LeaderBoardList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    <ListView
+        android:id="@+id/points"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <TextView
         android:id="@+id/my_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:text="My Points"
         android:layout_marginTop="5dp"
+        android:text="My Points"
         android:textSize="40sp"
         android:typeface="serif" />
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

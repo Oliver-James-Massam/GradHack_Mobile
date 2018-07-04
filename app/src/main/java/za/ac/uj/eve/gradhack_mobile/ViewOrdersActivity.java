@@ -2,8 +2,11 @@ package za.ac.uj.eve.gradhack_mobile;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,6 +57,14 @@ public class ViewOrdersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(ViewOrdersActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                SharedPreferences ordersPref = getApplicationContext().getSharedPreferences("OrdersPref", MODE_PRIVATE);
+                SharedPreferences.Editor ordersEditor = ordersPref.edit();
+                String tmpkey = data.get(position);
+                ordersEditor.putString("ordersDetails",tmpkey).apply();
+
+                Intent intent = new Intent(ViewOrdersActivity.this,OrdersDetails.class);
+
+                startActivity(intent);
             }
         });
     }
