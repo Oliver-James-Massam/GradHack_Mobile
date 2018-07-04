@@ -80,7 +80,7 @@ public class  RequestFoodActivity_NGO  extends AppCompatActivity{
                 SharedPreferences productPref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor productEditor = productPref.edit();
                 String tmpkey = items.get(i).second;
-                String tmpStoreID = items.get(i).second;
+                String tmpStoreID = items.get(i).first;
                 productEditor.putString("product_key_from_order",tmpkey).apply();
                 productEditor.putString("store_key_from_product",tmpStoreID).apply();
 

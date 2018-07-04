@@ -41,13 +41,13 @@ public class OrdersDetails extends AppCompatActivity {
 
         final int orderID = Integer.parseInt(temp);
 
-        final TextView orderNumber = (TextView) findViewById(R.id.orderNumberO);
-        final TextView storeName = (TextView) findViewById(R.id.storeNameO);
-        final TextView ngoName = (TextView) findViewById(R.id.ngoNameO);
-        final TextView productName = (TextView) findViewById(R.id.productNameO);
-        final TextView productQuantity = (TextView) findViewById(R.id.productQuantityO);
+        final TextView orderNumber = (TextView) findViewById(R.id.orderNumberOAns);
+        final TextView storeName = (TextView) findViewById(R.id.storeNameOAns);
+        final TextView ngoName = (TextView) findViewById(R.id.ngoNameOAns);
+        final TextView productName = (TextView) findViewById(R.id.productNameOAns);
+        final TextView productQuantity = (TextView) findViewById(R.id.productQuantityOAns);
         final ImageView qrCodeImage = (ImageView) findViewById(R.id.qrCodeO);
-        orderNumber.setText("Order #" + orderID);
+        orderNumber.setText("#" + orderID);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
@@ -119,6 +119,7 @@ public class OrdersDetails extends AppCompatActivity {
                 {
                     User user  = snap.getValue(User.class);
 
+                    Log.d("Bad",strStoreID + " " + snap.getKey());
                     if (snap.getKey().equals(strNGO_ID))
                     {
                         ngoName.setText(user.Name);
