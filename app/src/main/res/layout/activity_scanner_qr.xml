@@ -16,10 +16,17 @@
         android:textSize="25dp"
         android:layout_centerHorizontal="true"/>
     <Button
-        android:layout_width="wrap_content"
         android:layout_marginTop="430dp"
-        android:layout_height="wrap_content"
+
         android:layout_centerHorizontal="true"
-        android:text="SCAN"
-        android:id="@+id/scan_btn"/>
+        android:id="@+id/scan_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="4dp"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="@string/prompt_button_add"
+        android:textColor="@color/buttonLabel" />
 </RelativeLayout>
